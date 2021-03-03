@@ -7,7 +7,7 @@ namespace apiAuth.Services
   {
     public AutenticationModel Login(AutenticationModel model)
     {
-      throw new System.NotImplementedException();
+      return model;
     }
   }
 }

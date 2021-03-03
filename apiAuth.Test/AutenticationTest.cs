@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using apiAuth.Models;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Xunit.Abstractions;
 
 namespace apiAuth.Test
 {
@@ -13,10 +14,12 @@ namespace apiAuth.Test
   {
     AuthController _controller;
     IAutenticationService _service;
-    public AutenticationTest()
+    private readonly ITestOutputHelper _output;
+    public AutenticationTest(ITestOutputHelper output)
     {
       _service = new AutenticationServiceFake();
       _controller = new AuthController(_service);
+      _output = output;
     }
 
     [Fact]
@@ -26,8 +29,11 @@ namespace apiAuth.Test
       userAuth.Email = "guest@guest.com";
       userAuth.Senha = "123456";
       var response = await _controller.Login(userAuth);
-      Assert.IsType<OkObjectResult>(response.Result);
-      //Assert.Equal(200, (int)HttpStatusCode.OK);
+      _output.WriteLine(userAuth.Email);
+      _output.WriteLine(userAuth.Senha);
+      //_output.WriteLine((response.Result as StatusCodeResult).StatusCode.ToString());
+
+      Assert.Equal(200, (int)(response.Result as StatusCodeResult).StatusCode);
     }
   }
 }
