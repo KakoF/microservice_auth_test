@@ -15,7 +15,9 @@ namespace apiAuth.Models
     [Required(ErrorMessage = "Senha é requerida")]
     [MinLength(5, ErrorMessage = "Senha é no mínimo 5 caracteres")]
     public string Senha { get; set; }
+    public string Token { get; set; }
     public string Role { get; set; }
+
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
       if (string.IsNullOrEmpty(Email) && string.IsNullOrEmpty(Senha))
