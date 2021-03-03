@@ -29,10 +29,7 @@ namespace apiAuth.Test
       userAuth.Email = "guest@guest.com";
       userAuth.Senha = "123456";
       var response = await _controller.Login(userAuth);
-      _output.WriteLine((response.Result as StatusCodeResult).StatusCode.ToString());
-      //_output.WriteLine((response.Result as StatusCodeResult).StatusCode.ToString());
-
-      Assert.Equal(200, (int)(response.Result as StatusCodeResult).StatusCode);
+      Assert.IsType<OkObjectResult>(response.Result);
     }
   }
 }
