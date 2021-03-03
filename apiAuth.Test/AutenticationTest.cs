@@ -5,6 +5,7 @@ using Xunit;
 using System.Threading.Tasks;
 using apiAuth.Models;
 using System.Net;
+using Microsoft.AspNetCore.Mvc;
 
 namespace apiAuth.Test
 {
@@ -18,14 +19,15 @@ namespace apiAuth.Test
       _controller = new AuthController(_service);
     }
 
-        [Fact]
-        public void Login_ShouldReturnToken_WhenSuccess()
-        {
-            var userAuth = new AutenticationModel();
-            userAuth.Email = "kakoferrare@hotmail.com";
-            userAuth.Senha = "123456";
-            var okResult = _controller.Login(userAuth);
-            Assert.Equal(200, (int)HttpStatusCode.OK);
-        }
+    [Fact]
+    public async Task Login_ShouldReturnToken_WhenSuccessAsync()
+    {
+      var userAuth = new AutenticationModel();
+      userAuth.Email = "guest@guest.com";
+      userAuth.Senha = "123456";
+      var response = await _controller.Login(userAuth);
+      Assert.IsType<OkObjectResult>(response.Result);
+      //Assert.Equal(200, (int)HttpStatusCode.OK);
     }
+  }
 }
