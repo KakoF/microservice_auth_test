@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using apiAuth.Repositories.Interfaces;
 using apiAuth.Services;
 using apiAuth.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -48,8 +49,9 @@ namespace apiAuth
       });
 
       services.AddScoped<IAutenticationService, AutenticationService>();
+      services.AddScoped<IAutenticationRepository, AutenticationRepository>();
 
-    }
+        }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
