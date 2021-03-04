@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using apiAuth.Models;
 using apiAuth.Services.Interfaces;
 using apiAuth.utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -26,7 +27,7 @@ public class AuthController : ControllerBase
     }
     catch (Exception e)
     {
-      return BadRequest(e.Message);
+      return StatusCode(StatusCodes.Status400BadRequest, e.Data);
     }
 
   }

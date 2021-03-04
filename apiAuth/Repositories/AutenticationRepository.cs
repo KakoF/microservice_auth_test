@@ -1,3 +1,4 @@
+using System;
 using System.Data;
 using System.Threading.Tasks;
 using apiAuth.Models;
@@ -8,8 +9,16 @@ namespace apiAuth.Repositories.Interfaces
   {
     public AutenticationModel Login(AutenticationModel model)
     {
-      //throw new System.Exception("Erro em recuperar o usu�rio");
-      return model;
+      try
+      {
+        return model;
+      }
+      catch (Exception e)
+      {
+        e.Data.Add("errors", new { message = "Não foi possível recuperar o usuário" });
+        throw e;
+      }
+
     }
   }
 }
