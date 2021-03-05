@@ -39,13 +39,13 @@ namespace apiAuth.Models
       if (this.Email != "admin@admin.com" && this.Email != "guest@guest.com")
       {
         Exception e = new Exception();
-        e.Data.Add("errors", new { message = "Usuário Inválido" });
+        e.Data.Add("error", "Usuário Inválido");
         throw e;
       }
       if (this.Senha != "123456")
       {
         Exception e = new Exception();
-        e.Data.Add("errors", new { message = "Senha Inválida" });
+        e.Data.Add("error", "Senha Inválida");
         throw e;
       }
     }

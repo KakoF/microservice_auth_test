@@ -15,7 +15,7 @@ namespace apiAuth.Repositories.Interfaces
       }
       catch (Exception e)
       {
-        e.Data.Add("errors", new { message = "Não foi possível recuperar o usuário" });
+        e.Data.Add("error", "Não foi possível recuperar o usuário");
         throw e;
       }
 

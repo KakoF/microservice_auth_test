@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using apiAuth.Middleware;
 using apiAuth.Repositories.Interfaces;
 using apiAuth.Services;
 using apiAuth.Services.Interfaces;
@@ -31,8 +32,9 @@ namespace apiAuth
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddControllers();
-      services.AddSwaggerGen(c =>
+      services.AddControllers(options => options.Filters.Add<ValidationMiddleware>()).ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+            // services.AddMvc(options => options.Filters.Add<ValidationMiddleware>());
+            services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo
         {
