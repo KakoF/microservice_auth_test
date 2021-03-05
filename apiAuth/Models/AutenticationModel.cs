@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using apiAuth.utils.validation;
@@ -37,11 +38,15 @@ namespace apiAuth.Models
     {
       if (this.Email != "admin@admin.com" && this.Email != "guest@guest.com")
       {
-        throw new System.Exception("Usuário Inválido");
+        Exception e = new Exception();
+        e.Data.Add("errors", new { message = "Usuário Inválido" });
+        throw e;
       }
       if (this.Senha != "123456")
       {
-        throw new System.Exception("Senha Inválida");
+        Exception e = new Exception();
+        e.Data.Add("errors", new { message = "Senha Inválida" });
+        throw e;
       }
     }
     private void GetRole()

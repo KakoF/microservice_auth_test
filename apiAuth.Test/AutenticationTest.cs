@@ -40,5 +40,24 @@ namespace apiAuth.Test
       // Assert
       Assert.Equal(actual.StatusCode, expected.StatusCode);
     }
-  }
+    [Fact]
+    public async Task Login_ShouldReturnStatusCode400_IfNotImprovedEmail()
+    {
+        // Arrange
+        var expected = new BadRequestObjectResult(new { 
+            errors = "Usuário Inválido"
+        });
+
+        // Act
+        var userAuth = new AutenticationModel();
+        userAuth.Email = "";
+        userAuth.Senha = "123456";
+        var response = await _controller.Login(userAuth);
+        var actual = response.Result as BadRequestObjectResult;
+
+        // Assert
+        Assert.Equal(actual.StatusCode, expected.StatusCode);
+    }
+
+    }
 }

@@ -27,8 +27,7 @@ public class AuthController : ControllerBase
     }
     catch (Exception e)
     {
-      return StatusCode(StatusCodes.Status400BadRequest, e.Data);
+      return BadRequest(e.Data);
     }
-
   }
 }
