@@ -26,7 +26,7 @@ namespace apiAuth.Test
     public async Task Login_ShouldReturnStatusCode200()
     {
       // Arrange
-      var expeted = new OkObjectResult(value: new {
+      var expected = new OkObjectResult(value: new {
         token = "asdasdssdsdasdasds.asdasdasds.asdasdasd"
       });
 
@@ -38,7 +38,7 @@ namespace apiAuth.Test
       var actual = response.Result as OkObjectResult;
       
       // Assert
-      Assert.Equal(actual.StatusCode, expeted.StatusCode);
+      Assert.Equal(actual.StatusCode, expected.StatusCode);
     }
   }
 }
