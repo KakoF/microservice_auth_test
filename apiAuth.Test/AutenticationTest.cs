@@ -23,13 +23,22 @@ namespace apiAuth.Test
     }
 
     [Fact]
-    public async Task Login_ShouldReturnToken_WhenSuccessAsync()
+    public async Task Login_ShouldReturnStatusCode200()
     {
+      // Arrange
+      var expeted = new OkObjectResult(value: new {
+        token = "asdasdssdsdasdasds.asdasdasds.asdasdasd"
+      });
+
+      // Act
       var userAuth = new AutenticationModel();
       userAuth.Email = "guest@guest.com";
       userAuth.Senha = "123456";
       var response = await _controller.Login(userAuth);
-      Assert.IsType<OkObjectResult>(response.Result);
+      var actual = response.Result as OkObjectResult;
+      
+      // Assert
+      Assert.Equal(actual.StatusCode, expeted.StatusCode);
     }
   }
 }
