@@ -35,7 +35,7 @@ namespace apiAuth.Test
 
       // Act
       var userAuth = new AutenticationModel();
-      userAuth.Email = "guest@guest.com";
+      userAuth.Email = "admin@admin.com";
       userAuth.Senha = "123456";
       var response = await _controller.Login(userAuth);
       var actual = response.Result as OkObjectResult;
@@ -148,6 +148,26 @@ namespace apiAuth.Test
 
         // Assert
         Assert.Equal(isModelStateValid, expected);
+    }
+    [Fact]
+    public async Task Login_ShouldReturnStatusCode400_IfUserNotFound()
+    {
+        var expected = new BadRequestObjectResult(new {
+        error = "Usuário não encontrado"
+      });
+
+        // Arrange
+         var userAuth = new AutenticationModel();
+        userAuth.Email = "admin@admiasdn.com";
+        userAuth.Senha = "123456";
+        var response = await _controller.Login(userAuth);
+        var actual = response.Result as BadRequestObjectResult;
+
+        //var response = await _controller.Login(userAuth);
+        //var actual = response.Result as BadRequestObjectResult;
+
+        // Assert
+        Assert.Equal(actual.StatusCode, expected.StatusCode);
     }
 
     }
