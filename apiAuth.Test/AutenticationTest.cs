@@ -7,6 +7,9 @@ using apiAuth.Models;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Xunit.Abstractions;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace apiAuth.Test
 {
@@ -44,19 +47,86 @@ namespace apiAuth.Test
     public async Task Login_ShouldReturnStatusCode400_IfNotImprovedEmail()
     {
         // Arrange
-        var expected = new BadRequestObjectResult(new { 
-            errors = "Usuário Inválido"
-        });
+        var expected = false;
 
         // Act
         var userAuth = new AutenticationModel();
         userAuth.Email = "";
         userAuth.Senha = "123456";
-        var response = await _controller.Login(userAuth);
-        var actual = response.Result as BadRequestObjectResult;
+        var context = new ValidationContext(userAuth, null, null);
+        var results = new List<ValidationResult>();
+        TypeDescriptor.AddProviderTransparent(new AssociatedMetadataTypeTypeDescriptionProvider(typeof(AutenticationModel), typeof(AutenticationModel)), typeof(AutenticationModel));
+        var isModelStateValid = Validator.TryValidateObject(userAuth, context, results, true);
+
+        //var response = await _controller.Login(userAuth);
+        //var actual = response.Result as BadRequestObjectResult;
 
         // Assert
-        Assert.Equal(actual.StatusCode, expected.StatusCode);
+        Assert.Equal(isModelStateValid, expected);
+    }
+    [Fact]
+    public async Task Login_ShouldReturnStatusCode400_IfImprovedEmailIsNotValid()
+    {
+        // Arrange
+        var expected = false;
+
+        // Act
+        var userAuth = new AutenticationModel();
+        userAuth.Email = "usuario.usuario";
+        userAuth.Senha = "123456";
+        var context = new ValidationContext(userAuth, null, null);
+        var results = new List<ValidationResult>();
+        TypeDescriptor.AddProviderTransparent(new AssociatedMetadataTypeTypeDescriptionProvider(typeof(AutenticationModel), typeof(AutenticationModel)), typeof(AutenticationModel));
+        var isModelStateValid = Validator.TryValidateObject(userAuth, context, results, true);
+
+        //var response = await _controller.Login(userAuth);
+        //var actual = response.Result as BadRequestObjectResult;
+
+        // Assert
+        Assert.Equal(isModelStateValid, expected);
+    }
+
+    [Fact]
+    public async Task Login_ShouldReturnStatusCode400_IfNotImprovedSenha()
+    {
+        // Arrange
+        var expected = false;
+
+        // Act
+        var userAuth = new AutenticationModel();
+        userAuth.Email = "usuario@usuario.com";
+        userAuth.Senha = "";
+        var context = new ValidationContext(userAuth, null, null);
+        var results = new List<ValidationResult>();
+        TypeDescriptor.AddProviderTransparent(new AssociatedMetadataTypeTypeDescriptionProvider(typeof(AutenticationModel), typeof(AutenticationModel)), typeof(AutenticationModel));
+        var isModelStateValid = Validator.TryValidateObject(userAuth, context, results, true);
+
+        //var response = await _controller.Login(userAuth);
+        //var actual = response.Result as BadRequestObjectResult;
+
+        // Assert
+        Assert.Equal(isModelStateValid, expected);
+    }
+    [Fact]
+    public async Task Login_ShouldReturnStatusCode400_IfNotSenhaNotValid()
+    {
+        // Arrange
+        var expected = false;
+
+        // Act
+        var userAuth = new AutenticationModel();
+        userAuth.Email = "usuario@usuario.com";
+        userAuth.Senha = "123";
+        var context = new ValidationContext(userAuth, null, null);
+        var results = new List<ValidationResult>();
+        TypeDescriptor.AddProviderTransparent(new AssociatedMetadataTypeTypeDescriptionProvider(typeof(AutenticationModel), typeof(AutenticationModel)), typeof(AutenticationModel));
+        var isModelStateValid = Validator.TryValidateObject(userAuth, context, results, true);
+
+        //var response = await _controller.Login(userAuth);
+        //var actual = response.Result as BadRequestObjectResult;
+
+        // Assert
+        Assert.Equal(isModelStateValid, expected);
     }
 
     }
