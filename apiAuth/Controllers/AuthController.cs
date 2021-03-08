@@ -15,7 +15,12 @@ public class AuthController : ControllerBase
   {
     _service = service;
   }
-
+  /// <summary>
+  /// Autenticação do Usuário.
+  /// </summary>
+  /// <returns>A newly created TodoItem</returns>
+  /// <response code="200">Retorna a Token</response>
+  /// <response code="400">Caso usuário não encontrado ou inválido</response>       
   [HttpPost]
   public async Task<ActionResult<dynamic>> Login([FromBody] AutenticationModel model)
   {

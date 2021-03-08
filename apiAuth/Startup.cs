@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using apiAuth.Middleware;
 using apiAuth.Repositories.Interfaces;
@@ -36,6 +38,7 @@ namespace apiAuth
             // services.AddMvc(options => options.Filters.Add<ValidationMiddleware>());
             services.AddSwaggerGen(c =>
       {
+        c.SchemaFilter<SwaggerSkipPropertyFilter >();
         c.SwaggerDoc("v1", new OpenApiInfo
         {
           Version = "v1",
@@ -48,6 +51,9 @@ namespace apiAuth
           },
 
         });
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        c.IncludeXmlComments(xmlPath);
       });
 
       services.AddScoped<IAutenticationService, AutenticationService>();
@@ -62,6 +68,7 @@ namespace apiAuth
 
       app.UseSwaggerUI(c =>
       {
+        //c.DefaultModelsExpandDepth(-1); // Disable swagger schemas at bottom
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Auth Service API");
       });
       if (env.IsDevelopment())

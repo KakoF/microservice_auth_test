@@ -8,6 +8,7 @@ namespace apiAuth.Models
   public class AutenticationModel : IValidatableObject
   {
 
+    [SwaggerIgnore]
     public int Id { get; set; }
     [Required(ErrorMessage = "Email é requerido")]
     //[CustomName("K")]
@@ -16,7 +17,9 @@ namespace apiAuth.Models
     [Required(ErrorMessage = "Senha é requerida")]
     [MinLength(5, ErrorMessage = "Senha é no mínimo 5 caracteres")]
     public string Senha { get; set; }
+    [SwaggerIgnore]
     public string Token { get; set; }
+    [SwaggerIgnore]
     public string Role { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
