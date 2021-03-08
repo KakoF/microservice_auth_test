@@ -26,7 +26,7 @@ public class AuthController : ControllerBase
   {
     try
     {
-      model.IsCustomValid();
+      //model.IsCustomValid();
       var userAuth = await _service.Login(model);
       return Ok(new { token = userAuth.Token });
     }

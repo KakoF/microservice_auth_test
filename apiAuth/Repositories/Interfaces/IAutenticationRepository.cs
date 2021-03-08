@@ -5,6 +5,6 @@ namespace apiAuth.Repositories.Interfaces
 {
   public interface IAutenticationRepository
   {
-    AutenticationModel Login(AutenticationModel model);
+    Task<AutenticationModel> LoginAsync(AutenticationModel model);
   }
 }

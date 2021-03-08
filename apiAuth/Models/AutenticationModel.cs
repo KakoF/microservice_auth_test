@@ -22,6 +22,8 @@ namespace apiAuth.Models
     public string Token { get; set; }
     [SwaggerIgnore]
     public string Role { get; set; }
+    [SwaggerIgnore]
+    public string Nome { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

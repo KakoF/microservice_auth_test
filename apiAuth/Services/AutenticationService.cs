@@ -16,8 +16,8 @@ namespace apiAuth.Services
     }
     public async Task<AutenticationModel> Login(AutenticationModel model)
     {
-      var authUser = _autenticationRepository.Login(model);
-      var token = await Token.GenerateToken(model);
+      var authUser = await _autenticationRepository.LoginAsync(model);
+      var token = await Token.GenerateToken(authUser);
       authUser.Token = token;
       return authUser;
     }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using apiAuth.Middleware;
+using apiAuth.Repositories;
 using apiAuth.Repositories.Interfaces;
 using apiAuth.Services;
 using apiAuth.Services.Interfaces;
@@ -58,6 +59,7 @@ namespace apiAuth
 
       services.AddScoped<IAutenticationService, AutenticationService>();
       services.AddScoped<IAutenticationRepository, AutenticationRepository>();
+      services.AddScoped<IFirebaseConnection, FirebaseConnection>();
 
         }
 
