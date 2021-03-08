@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using apiAuth.Models;
+using apiAuth.utils;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 

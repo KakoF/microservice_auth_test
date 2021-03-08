@@ -1,6 +1,6 @@
 using System;
 
-namespace apiAuth.Models
+namespace apiAuth.utils
 {
     public class SwaggerIgnoreAttribute : Attribute
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using apiAuth.utils;
 using apiAuth.utils.validation;
 
 namespace apiAuth.Models
