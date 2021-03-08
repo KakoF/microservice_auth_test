@@ -44,6 +44,27 @@ namespace apiAuth.Test
       Assert.Equal(actual.StatusCode, expected.StatusCode);
     }
     [Fact]
+    public async Task Login_ShouldReturnTrue_ModelStateIsValid()
+    {
+        // Arrange
+        var expected = true;
+
+        // Act
+        var userAuth = new AutenticationModel();
+        userAuth.Email = "usuario@usuario.com";
+        userAuth.Senha = "123456";
+        var context = new ValidationContext(userAuth, null, null);
+        var results = new List<ValidationResult>();
+        TypeDescriptor.AddProviderTransparent(new AssociatedMetadataTypeTypeDescriptionProvider(typeof(AutenticationModel), typeof(AutenticationModel)), typeof(AutenticationModel));
+        var isModelStateValid = Validator.TryValidateObject(userAuth, context, results, true);
+
+        //var response = await _controller.Login(userAuth);
+        //var actual = response.Result as BadRequestObjectResult;
+
+        // Assert
+        Assert.Equal(isModelStateValid, expected);
+    }
+    [Fact]
     public async Task Login_ShouldReturnStatusCode400_IfNotImprovedEmail()
     {
         // Arrange
